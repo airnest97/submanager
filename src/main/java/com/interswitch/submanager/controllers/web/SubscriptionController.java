@@ -29,43 +29,40 @@ public class SubscriptionController {
     private final SubscriptionService subscriptionService;
 
 
+//    @GetMapping("/name")
+//    public ResponseEntity<?>findSubscriptionByNameOfSubscription(@Valid @NotBlank @NotNull @RequestParam String name) throws SubmanagerException {
+//        SubscriptionDto subscriptionResponse = subscriptionService.findSubscriptionByNameOfSubscription(name);
+//        return new ResponseEntity<>(subscriptionResponse, HttpStatus.OK);
+//    }
+//
+//    @GetMapping("/category")
+//    public ResponseEntity<?>findSubscriptionByCategory(@Valid @NotBlank @NotNull @RequestParam String category) throws SubmanagerException {
+//        List<SubscriptionDto> subscriptionResponses = subscriptionService.findSubscriptionByCategory(category);
+//        return new ResponseEntity<>(subscriptionResponses, HttpStatus.OK);
+//    }
+//
+//    @GetMapping("/paymentCycle")
+//    public ResponseEntity<?>findSubscriptionByPaymentCycle(@Valid @NotBlank @NotNull @RequestParam String paymentCycle) throws SubmanagerException {
+//        List<SubscriptionDto> subscriptionResponses  = subscriptionService.findSubscriptionByPaymentCycle(paymentCycle);
+//        return new ResponseEntity<>(subscriptionResponses, HttpStatus.OK);
+//    }
+//
+//    @GetMapping("/nextPayment")
+//    public ResponseEntity<?>findSubscriptionByNextPayment(@Valid @NotBlank @NotNull @RequestParam String nextPayment) throws SubmanagerException {
+//        List<SubscriptionDto> subscriptionResponses  = subscriptionService.findSubscriptionByNextPayment(LocalDate.parse(nextPayment));
+//        return new ResponseEntity<>(subscriptionResponses, HttpStatus.OK);
+//    }
+//
+//    @GetMapping("/dateAdded")
+//    public ResponseEntity<?>findSubscriptionByDateAdded(@Valid @NotBlank @NotNull @RequestParam String dateAdded) throws SubmanagerException {
+//        List<SubscriptionDto> subscriptionResponses  = subscriptionService.findSubscriptionByDateAdded(LocalDate.parse(dateAdded));
+//        return new ResponseEntity<>(subscriptionResponses, HttpStatus.OK);
+//    }
 
     @GetMapping("/id")
     public ResponseEntity<?>findSubscriptionById(@Valid @NotBlank @NotNull @RequestParam String id) throws SubmanagerException {
         SubscriptionDto subscriptionResponse = subscriptionService.findSubscriptionById(id);
         return new ResponseEntity<>(subscriptionResponse, HttpStatus.OK);
-    }
-
-
-
-    @GetMapping("/name")
-    public ResponseEntity<?>findSubscriptionByNameOfSubscription(@Valid @NotBlank @NotNull @RequestParam String name) throws SubmanagerException {
-        SubscriptionDto subscriptionResponse = subscriptionService.findSubscriptionByNameOfSubscription(name);
-        return new ResponseEntity<>(subscriptionResponse, HttpStatus.OK);
-    }
-
-    @GetMapping("/category")
-    public ResponseEntity<?>findSubscriptionByCategory(@Valid @NotBlank @NotNull @RequestParam String category) throws SubmanagerException {
-        List<SubscriptionDto> subscriptionResponses = subscriptionService.findSubscriptionByCategory(category);
-        return new ResponseEntity<>(subscriptionResponses, HttpStatus.OK);
-    }
-
-    @GetMapping("/paymentCycle")
-    public ResponseEntity<?>findSubscriptionByPaymentCycle(@Valid @NotBlank @NotNull @RequestParam String paymentCycle) throws SubmanagerException {
-        List<SubscriptionDto> subscriptionResponses  = subscriptionService.findSubscriptionByPaymentCycle(paymentCycle);
-        return new ResponseEntity<>(subscriptionResponses, HttpStatus.OK);
-    }
-
-    @GetMapping("/nextPayment")
-    public ResponseEntity<?>findSubscriptionByNextPayment(@Valid @NotBlank @NotNull @RequestParam String nextPayment) throws SubmanagerException {
-        List<SubscriptionDto> subscriptionResponses  = subscriptionService.findSubscriptionByNextPayment(LocalDate.parse(nextPayment));
-        return new ResponseEntity<>(subscriptionResponses, HttpStatus.OK);
-    }
-
-    @GetMapping("/dateAdded")
-    public ResponseEntity<?>findSubscriptionByDateAdded(@Valid @NotBlank @NotNull @RequestParam String dateAdded) throws SubmanagerException {
-        List<SubscriptionDto> subscriptionResponses  = subscriptionService.findSubscriptionByDateAdded(LocalDate.parse(dateAdded));
-        return new ResponseEntity<>(subscriptionResponses, HttpStatus.OK);
     }
 
     @GetMapping("/{pageNo}/{noOfItems}")

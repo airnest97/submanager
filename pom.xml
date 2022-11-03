@@ -146,6 +146,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>submanager</finalName>
 	</build>
 
 </project>
