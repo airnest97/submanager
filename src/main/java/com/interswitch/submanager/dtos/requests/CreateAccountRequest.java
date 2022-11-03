@@ -14,6 +14,7 @@ public class CreateAccountRequest {
     private String lastName;
     private String email;
     private String password;
+    private String phoneNumber;
 
     @Override
     public String toString() {
@@ -22,6 +23,7 @@ public class CreateAccountRequest {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
     }
 }

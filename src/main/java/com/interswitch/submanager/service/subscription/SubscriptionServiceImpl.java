@@ -52,8 +52,9 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
     @Override
     public Subscription addSubscription(User user, AddSubscriptionRequest request) throws SubmanagerException {
-        Optional<Subscription> found = subscriptionRepository.findSubscriptionByNameOfSubscription(request.getNameOfSubscription());
-        if (found.isPresent()) {
+        Subscription found = subscriptionRepository.findSubscriptionByNameOfSubscription(request.getNameOfSubscription()).
+                orElseThrow(()-> new SubmanagerException("Subscription with subscription name "+ request.getNameOfSubscription()+" not found",404));
+        if(user.getSubscriptions().contains(found)){
             throw new SubmanagerException(String.format("%s already exist", request.getNameOfSubscription()), 400);
         }
         Subscription subscription = modelMapper.map(request, Subscription.class);

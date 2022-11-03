@@ -58,6 +58,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public UserDto createUserAccount(String host, CreateAccountRequest createAccountRequest) throws SubmanagerException {
         validateIfUserExist(createAccountRequest);
         User user = new User(createAccountRequest.getFirstName(), createAccountRequest.getLastName(), createAccountRequest.getEmail(), bCryptPasswordEncoder.encode(createAccountRequest.getPassword()));
+        user.setPhoneNumber(createAccountRequest.getPhoneNumber());
         user.setCreatedDate(LocalDateTime.now());
 
         createWalletFor(user);
