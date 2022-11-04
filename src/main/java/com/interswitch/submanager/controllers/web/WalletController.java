@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 public class WalletController {
     private final WalletService walletService;
 
-
     @PostMapping("/fundWallet")
     public ResponseEntity<?> depositFunds(@RequestBody WalletTransactionRequest walletTransactionRequest){
         WalletTransactionResponse walletTransactionResponse = walletService.depositFunds(walletTransactionRequest);

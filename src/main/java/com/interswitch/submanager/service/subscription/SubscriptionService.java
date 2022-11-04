@@ -24,16 +24,9 @@ public interface SubscriptionService {
     ResponseEntity<?> payForMobileDataSubscriptionWithCard(MobileDataCardPaymentRequest mobileDataCardPaymentRequest) throws URISyntaxException;
     Subscription updateSubscription(String subscriptionId, UpdateSubscriptionRequest request) throws SubmanagerException;
     SubscriptionDto findSubscriptionById(String id) throws SubmanagerException;
-//    List<SubscriptionDto> findSubscriptionByCategory(String category) throws SubmanagerException;
-//    SubscriptionDto findSubscriptionByNameOfSubscription(String name) throws SubmanagerException;
-//    List<SubscriptionDto> findSubscriptionByPaymentCycle(String paymentCycle) throws SubmanagerException;
-//    List<SubscriptionDto> findSubscriptionByNextPayment(LocalDate nextPayment) throws SubmanagerException;
-//    List<SubscriptionDto> findSubscriptionByDateAdded(LocalDate dateAdded) throws SubmanagerException;
     Map<String, Object> findAll(int pageNumber, int noOfItems);
     List<SubscriptionDto> getAllSubscriptionForUser(Long id);
     Subscription removeSubscription(String subscriptionId) throws SubmanagerException;
     void generateSubscriptionReport(String numberOfMonths, String userId, HttpServletResponse httpServletResponse) throws IOException, SubmanagerException;
     List<Subscription> findByDate(LocalDate now);
-    void deleteAll();
-    int getNumberOfSubscriptions();
 }

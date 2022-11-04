@@ -1,0 +1,1 @@
+web: java -jar target/submanager-0.0.1-SNAPSHOT.jar

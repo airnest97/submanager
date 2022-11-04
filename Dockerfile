@@ -1,4 +1,4 @@
-FROM openjdk:19
+FROM openjdk:17-alpine
 MAINTAINER submanager
 EXPOSE 8080
 ADD target/submanager.jar submanager.jar

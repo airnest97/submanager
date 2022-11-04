@@ -36,7 +36,6 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static com.interswitch.submanager.service.subscription.SubscriptionServiceImpl.getSubscriptionDto;
 
 @Service
 @Slf4j
@@ -113,12 +112,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         User user = userRepository.findById(Long.valueOf(id)).orElseThrow(
                 () -> new SubmanagerException("User id not found", 404)
         );
-        user.setFirstName(updateRequest.getFirstName());
-        user.setLastName(updateRequest.getLastName());
-        user.setPhoneNumber(updateRequest.getPhoneNumber());
-        user.setEmail(updateRequest.getEmail());
-        userRepository.save(user);
-        return modelMapper.map(user, UserDto.class);
+        User savedUsed = modelMapper.map(updateRequest, User.class);
+        savedUsed.setId(user.getId());
+        savedUsed.setCreatedDate(user.getCreatedDate());
+        userRepository.save(savedUsed);
+        return modelMapper.map(savedUsed, UserDto.class);
     }
 
     @Override
@@ -195,7 +193,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         applicationEventPublisher.publishEvent(addSubscriptionEvent);
         userRepository.save(user);
         log.info("name of subscription -> {}",subscription.getNameOfSubscription());
-        return buildResponse(subscription);
+        return modelMapper.map(subscription, SubscriptionDto.class);
     }
 
     @Override
@@ -203,7 +201,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         User user = userRepository.findById(Long.valueOf(userId)).orElseThrow(() -> new SubmanagerException("user not found", 404));
         Subscription subscription = subscriptionService.updateSubscription(subscriptionId, request);
         user.getSubscriptions().add(subscription);
-        return buildResponse(subscription);
+        return modelMapper.map(subscription, SubscriptionDto.class);
     }
 
     @Override
@@ -262,9 +260,5 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return roles.stream().map(
                 role -> new SimpleGrantedAuthority(role.getRoleType().name())
         ).collect(Collectors.toSet());
-    }
-
-    private SubscriptionDto buildResponse(Subscription savedSubscription) {
-        return getSubscriptionDto(savedSubscription);
     }
 }

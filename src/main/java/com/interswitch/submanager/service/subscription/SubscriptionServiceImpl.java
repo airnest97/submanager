@@ -37,8 +37,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -53,21 +51,11 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
     @Override
     public Subscription addSubscription(User user, AddSubscriptionRequest request) throws SubmanagerException {
-        if(user.getSubscriptions().size() > 1) {
-            for (int i = 0; i < user.getSubscriptions().size(); i++) {
-                if (user.getSubscriptions().get(i).getNameOfSubscription().equals(request.getNameOfSubscription())) {
-                    throw new SubmanagerException(String.format("%s already exist", request.getNameOfSubscription()), 400);
-                }
-            }
+        Optional<Subscription> foundSubscription = user.getSubscriptions().stream().
+                filter(subscription -> subscription.getNameOfSubscription().equals(request.getNameOfSubscription())).findFirst();
+        if (foundSubscription.isPresent()) {
+            throw new SubmanagerException(String.format("%s already exist", request.getNameOfSubscription()), 400);
         }
-
-//        Optional<Subscription> found = subscriptionRepository.findSubscriptionByNameOfSubscription(request.getNameOfSubscription());
-//        if(found.isPresent()){
-//            throw new SubmanagerException(String.format("%s already exist", request.getNameOfSubscription()), 400);
-//        }
-//        if(user.getSubscriptions().contains(found.get())){
-//            throw new SubmanagerException(String.format("%s already exist", request.getNameOfSubscription()), 400);
-//        }
         Subscription subscription = modelMapper.map(request, Subscription.class);
         subscription.setUser(user);
         subscription.setDateAdded(LocalDate.now());
@@ -201,40 +189,6 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         return buildResponse(subscription);
     }
 
-//    @Override
-//    public List<SubscriptionDto> findSubscriptionByCategory(String category) throws SubmanagerException {
-//        List<Subscription> subscriptions = subscriptionRepository.findSubscriptionByCategory(Category.valueOf(category)).
-//                orElseThrow(() -> new SubmanagerException("No subscription found for category " + category, 404));
-//        return subscriptions.stream().map(this::buildResponse).collect(Collectors.toList());
-//    }
-//
-//    @Override
-//    public SubscriptionDto findSubscriptionByNameOfSubscription(String name) throws SubmanagerException {
-//        Subscription subscription = subscriptionRepository.findSubscriptionByNameOfSubscription(name).
-//                orElseThrow(() -> new SubmanagerException("Subscription with name as " + name + " not found", 404));
-//        return buildResponse(subscription);
-//    }
-//
-//    @Override
-//    public List<SubscriptionDto> findSubscriptionByPaymentCycle(String paymentCycle) throws SubmanagerException {
-//        List<Subscription> subscriptions = subscriptionRepository.findSubscriptionByPaymentCycle(Cycle.valueOf(paymentCycle)).
-//                orElseThrow(() -> new SubmanagerException("Subscription with payment cycle as " + paymentCycle + " not found", 404));
-//        return subscriptions.stream().map(this::buildResponse).collect(Collectors.toList());
-//    }
-//
-//    @Override
-//    public List<SubscriptionDto> findSubscriptionByNextPayment(LocalDate nextPayment) throws SubmanagerException {
-//        List<Subscription> subscriptions =subscriptionRepository.findSubscriptionByNextPayment(nextPayment).
-//                orElseThrow(() -> new SubmanagerException("No subscription with next payment date as " + nextPayment + " found", 404));
-//        return subscriptions.stream().map(this::buildResponse).collect(Collectors.toList());
-//    }
-//    @Override
-//    public List<SubscriptionDto> findSubscriptionByDateAdded(LocalDate dateAdded) throws SubmanagerException {
-//        List<Subscription> subscriptions = subscriptionRepository.findSubscriptionByDateAdded(dateAdded).
-//                orElseThrow(() -> new SubmanagerException("No subscription with added date as " + dateAdded + " found", 404));
-//        return subscriptions.stream().map(this::buildResponse).collect(Collectors.toList());
-//    }
-
     @Override
     public Map<String, Object> findAll(int numberOfPages, int numberOfItems) {
         Pageable pageable = PageRequest.of(numberOfPages, numberOfItems, Sort.by("nameOfSubscription"));
@@ -314,16 +268,6 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     @Override
     public List<Subscription> findByDate(LocalDate now) {
         return subscriptionRepository.findByDate(now);
-    }
-
-    @Override
-    public void deleteAll() {
-        subscriptionRepository.deleteAll();
-    }
-
-    @Override
-    public int getNumberOfSubscriptions() {
-        return (int)subscriptionRepository.count();
     }
 
     private SubscriptionDto buildResponse(Subscription savedSubscription) {
