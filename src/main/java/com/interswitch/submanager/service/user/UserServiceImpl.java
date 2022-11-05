@@ -212,6 +212,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return modelMapper.map(subscription, SubscriptionDto.class);
     }
 
+    @Override
+    public SubscriptionDto findSubscriptionByName(String userId, String subscriptionName) {
+        User user = userRepository.findById(Long.valueOf(userId)).orElseThrow(() -> new SubmanagerException("user not found", 404));
+        return subscriptionService.findSubscriptionByName(user, subscriptionName);
+    }
 
     @Override
     @SneakyThrows

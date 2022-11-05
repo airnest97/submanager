@@ -23,4 +23,5 @@ public interface UserService {
     SubscriptionDto addSubscription(String userId, AddSubscriptionRequest request) throws SubmanagerException;
     SubscriptionDto updateSubscription(String userId, String subscriptionId, UpdateSubscriptionRequest request) throws SubmanagerException;
     SubscriptionDto removeSubscription(String userId, String subscriptionId) throws SubmanagerException;
+    SubscriptionDto findSubscriptionByName(String userId, String name);
 }

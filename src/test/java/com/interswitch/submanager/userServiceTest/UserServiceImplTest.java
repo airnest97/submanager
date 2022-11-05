@@ -273,4 +273,14 @@ public class UserServiceImplTest {
         assertThat("Netflix").isEqualTo(subscriptionDto.getNameOfSubscription());
         assertThat(userToReturn.getSubscriptions().size()).isEqualTo(0);
     }
+
+    @Test
+    public void userCanFindSubscriptionByNameOfSubscription(){
+        when(userRepository.findById(1L)).thenReturn(Optional.of(userToReturn));
+        userToReturn.getSubscriptions().add(subscriptionToReturn);
+        when(userService.findSubscriptionByName(String.valueOf(1L), "Netflix")).thenReturn(subscriptionDtoToReturn);
+        SubscriptionDto subscriptionDto = userService.findSubscriptionByName(String.valueOf(1L), "Netflix");
+        assertThat(userToReturn.getSubscriptions().size()).isEqualTo(1);
+        assertThat(subscriptionDto.getPriceOfSubscription()).isEqualTo(BigDecimal.valueOf(3400.00));
+    }
 }

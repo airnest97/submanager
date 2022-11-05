@@ -73,7 +73,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         uri = new URI(baseUrl);
         HttpEntity<DstvCardPaymentRequest> requestEntity = new HttpEntity<>(dstvCardPaymentRequest, headers);
         ResponseEntity<PaymentApiResponse> result = restTemplate.postForEntity(uri, requestEntity, PaymentApiResponse.class);
-        if(Objects.requireNonNull(result.getBody()).isSuccessful()){
+        if (Objects.requireNonNull(result.getBody()).isSuccessful()) {
             updateSubscriptionDetailsAfterPayment(foundSubscription, result);
         }
         return result;
@@ -84,8 +84,8 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         Subscription foundSubscription = subscriptionRepository.findSubscriptionById(Long.parseLong(dstvWalletPaymentRequest.getSubscriptionId())).
                 orElseThrow(() -> new SubmanagerException("Subscription with subscription Id " + dstvWalletPaymentRequest.getSubscriptionId() + " not found", 404));
         Wallet foundWallet = walletService.findWalletById(Long.parseLong(dstvWalletPaymentRequest.getWalletId()));
-        if(foundWallet.getBalance().compareTo(dstvWalletPaymentRequest.getPriceOfSubscription()) < 0){
-            throw  new SubmanagerException("You do not have sufficient balance in your wallet. Please load your wallet or explore other payment channels ",400);
+        if (foundWallet.getBalance().compareTo(dstvWalletPaymentRequest.getPriceOfSubscription()) < 0) {
+            throw new SubmanagerException("You do not have sufficient balance in your wallet. Please load your wallet or explore other payment channels ", 400);
         }
         foundWallet.setBalance(foundWallet.getBalance().subtract(dstvWalletPaymentRequest.getPriceOfSubscription()));
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -93,7 +93,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         uri = new URI(baseUrl);
         HttpEntity<DstvWalletPaymentRequest> requestEntity = new HttpEntity<>(dstvWalletPaymentRequest, headers);
         ResponseEntity<PaymentApiResponse> result = restTemplate.postForEntity(uri, requestEntity, PaymentApiResponse.class);
-        if(Objects.requireNonNull(result.getBody()).isSuccessful()){
+        if (Objects.requireNonNull(result.getBody()).isSuccessful()) {
             updateSubscriptionDetailsAfterPayment(foundSubscription, result);
         }
         return result;
@@ -108,7 +108,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         uri = new URI(baseUrl);
         HttpEntity<GotvCardPaymentRequest> requestEntity = new HttpEntity<>(gotvCardPaymentRequest, headers);
         ResponseEntity<PaymentApiResponse> result = restTemplate.postForEntity(uri, requestEntity, PaymentApiResponse.class);
-        if(Objects.requireNonNull(result.getBody()).isSuccessful()){
+        if (Objects.requireNonNull(result.getBody()).isSuccessful()) {
             updateSubscriptionDetailsAfterPayment(foundSubscription, result);
         }
         return result;
@@ -119,8 +119,8 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         Subscription foundSubscription = subscriptionRepository.findSubscriptionById(Long.parseLong(gotvWalletPaymentRequest.getSubscriptionId())).
                 orElseThrow(() -> new SubmanagerException("Subscription with subscription Id " + gotvWalletPaymentRequest.getSubscriptionId() + " not found", 404));
         Wallet foundWallet = walletService.findWalletById(Long.parseLong(gotvWalletPaymentRequest.getWalletId()));
-        if(foundWallet.getBalance().compareTo(gotvWalletPaymentRequest.getPriceOfSubscription()) < 0){
-            throw  new SubmanagerException("You do not have sufficient balance in your wallet. Please load your wallet or explore other payment channels ",400);
+        if (foundWallet.getBalance().compareTo(gotvWalletPaymentRequest.getPriceOfSubscription()) < 0) {
+            throw new SubmanagerException("You do not have sufficient balance in your wallet. Please load your wallet or explore other payment channels ", 400);
         }
         foundWallet.setBalance(foundWallet.getBalance().subtract(gotvWalletPaymentRequest.getPriceOfSubscription()));
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -128,7 +128,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         uri = new URI(baseUrl);
         HttpEntity<GotvWalletPaymentRequest> requestEntity = new HttpEntity<>(gotvWalletPaymentRequest, headers);
         ResponseEntity<PaymentApiResponse> result = restTemplate.postForEntity(uri, requestEntity, PaymentApiResponse.class);
-        if(Objects.requireNonNull(result.getBody()).isSuccessful()){
+        if (Objects.requireNonNull(result.getBody()).isSuccessful()) {
             updateSubscriptionDetailsAfterPayment(foundSubscription, result);
         }
         return result;
@@ -139,8 +139,8 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         Subscription foundSubscription = subscriptionRepository.findSubscriptionById(Long.parseLong(mobileDataWalletPaymentRequest.getSubscriptionId())).
                 orElseThrow(() -> new SubmanagerException("Subscription with subscription Id " + mobileDataWalletPaymentRequest.getSubscriptionId() + " not found", 404));
         Wallet foundWallet = walletService.findWalletById(Long.parseLong(mobileDataWalletPaymentRequest.getWalletId()));
-        if(foundWallet.getBalance().compareTo(mobileDataWalletPaymentRequest.getPriceOfSubscription()) < 0){
-            throw  new SubmanagerException("You do not have sufficient balance in your wallet. Please load your wallet or explore other payment channels ",400);
+        if (foundWallet.getBalance().compareTo(mobileDataWalletPaymentRequest.getPriceOfSubscription()) < 0) {
+            throw new SubmanagerException("You do not have sufficient balance in your wallet. Please load your wallet or explore other payment channels ", 400);
         }
         foundWallet.setBalance(foundWallet.getBalance().subtract(mobileDataWalletPaymentRequest.getPriceOfSubscription()));
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -148,7 +148,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         uri = new URI(baseUrl);
         HttpEntity<MobileDataWalletPaymentRequest> requestEntity = new HttpEntity<>(mobileDataWalletPaymentRequest, headers);
         ResponseEntity<PaymentApiResponse> result = restTemplate.postForEntity(uri, requestEntity, PaymentApiResponse.class);
-        if(Objects.requireNonNull(result.getBody()).isSuccessful()){
+        if (Objects.requireNonNull(result.getBody()).isSuccessful()) {
             updateSubscriptionDetailsAfterPayment(foundSubscription, result);
         }
         return result;
@@ -163,7 +163,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         uri = new URI(baseUrl);
         HttpEntity<MobileDataCardPaymentRequest> requestEntity = new HttpEntity<>(mobileDataCardPaymentRequest, headers);
         ResponseEntity<PaymentApiResponse> result = restTemplate.postForEntity(uri, requestEntity, PaymentApiResponse.class);
-        if(Objects.requireNonNull(result.getBody()).isSuccessful()){
+        if (Objects.requireNonNull(result.getBody()).isSuccessful()) {
             updateSubscriptionDetailsAfterPayment(foundSubscription, result);
         }
         return result;
@@ -190,16 +190,25 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     @Override
+    public SubscriptionDto findSubscriptionByName(User user, String name) {
+       Optional<Subscription> foundSubscription =  user.getSubscriptions().stream().filter(subscription -> subscription.getNameOfSubscription().equals(name)).findFirst();
+       if(foundSubscription.isEmpty()){
+           throw new SubmanagerException("Subscription with name as "+name+" not found", 404);
+       }
+        return modelMapper.map(foundSubscription, SubscriptionDto.class);
+    }
+
+    @Override
     public Map<String, Object> findAll(int numberOfPages, int numberOfItems) {
         Pageable pageable = PageRequest.of(numberOfPages, numberOfItems, Sort.by("nameOfSubscription"));
         Page<Subscription> page = subscriptionRepository.findAll(pageable);
         Map<String, Object> pageResult = new HashMap<>();
         pageResult.put("totalNumberOfPages", page.getTotalPages());
         pageResult.put("totalNumberOfElementsInDatabase", page.getTotalElements());
-        if (page.hasNext()){
+        if (page.hasNext()) {
             pageResult.put("nextPage", page.nextPageable());
         }
-        if (page.hasPrevious()){
+        if (page.hasPrevious()) {
             pageResult.put("previousPage", page.previousPageable());
         }
         pageResult.put("subscriptions", page.getContent());
@@ -212,9 +221,9 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     @Override
     public List<SubscriptionDto> getAllSubscriptionForUser(Long id) {
         List<Subscription> list = subscriptionRepository.findSubscriptionByUser_Id(id).orElseThrow(
-                ()-> new SubmanagerException("User not found!",404));
+                () -> new SubmanagerException("User not found!", 404));
         List<SubscriptionDto> subscriptionDtoList = new ArrayList<>();
-        for (Subscription subscription: list){
+        for (Subscription subscription : list) {
             SubscriptionDto subscriptionDto = modelMapper.map(subscription, SubscriptionDto.class);
             subscriptionDtoList.add(subscriptionDto);
         }
@@ -224,7 +233,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     @Override
     public Subscription removeSubscription(String subscriptionId) throws SubmanagerException {
         var toBeDeleted = subscriptionRepository.findSubscriptionById(Long.parseLong(subscriptionId));
-        if(toBeDeleted.isEmpty()){
+        if (toBeDeleted.isEmpty()) {
             throw new SubmanagerException("Subscription not found", 404);
         }
 
@@ -236,9 +245,9 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     @Override
     public void generateSubscriptionReport(String numberOfMonths, String userId, HttpServletResponse response) throws IOException, SubmanagerException {
         List<Subscription> subscriptions = subscriptionRepository.findSubscriptionByUser_Id(Long.parseLong(userId)).orElseThrow(
-                ()-> new SubmanagerException("No subscription found!",404));
+                () -> new SubmanagerException("No subscription found!", 404));
 
-        if(Integer.parseInt(numberOfMonths) > 0 && Integer.parseInt(numberOfMonths) <= 12){
+        if (Integer.parseInt(numberOfMonths) > 0 && Integer.parseInt(numberOfMonths) <= 12) {
             List<SubscriptionDto> filteredSubscriptionResponses = filterSubscriptionByDate(numberOfMonths, subscriptions);
 
             response.setContentType("application/pdf");
@@ -251,9 +260,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
             SubscriptionPdfExporter exporter = new SubscriptionPdfExporterImpl(filteredSubscriptionResponses);
             exporter.export(response);
-        }
-
-        else {
+        } else {
             throw new SubmanagerException("Number of months is not valid. Kindly check again..", 404);
         }
     }

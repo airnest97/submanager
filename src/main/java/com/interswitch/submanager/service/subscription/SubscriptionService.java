@@ -24,6 +24,7 @@ public interface SubscriptionService {
     ResponseEntity<?> payForMobileDataSubscriptionWithCard(MobileDataCardPaymentRequest mobileDataCardPaymentRequest) throws URISyntaxException;
     Subscription updateSubscription(String subscriptionId, UpdateSubscriptionRequest request) throws SubmanagerException;
     SubscriptionDto findSubscriptionById(String id) throws SubmanagerException;
+    SubscriptionDto findSubscriptionByName(User user, String name);
     Map<String, Object> findAll(int pageNumber, int noOfItems);
     List<SubscriptionDto> getAllSubscriptionForUser(Long id);
     Subscription removeSubscription(String subscriptionId) throws SubmanagerException;

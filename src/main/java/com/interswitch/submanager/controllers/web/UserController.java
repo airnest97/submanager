@@ -125,4 +125,10 @@ public class UserController {
     public ResponseEntity<?> removeSubscription(@PathVariable String userId,@PathVariable String subscriptionId) throws SubmanagerException {
         return new ResponseEntity<>(userService.removeSubscription(userId, subscriptionId), HttpStatus.NO_CONTENT);
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<?>findSubscriptionByName(@Valid @NotBlank @NotNull @RequestParam String userId, @RequestParam String subscriptionName) throws SubmanagerException {
+        SubscriptionDto subscriptionResponse = userService.findSubscriptionByName(userId, subscriptionName);
+        return new ResponseEntity<>(subscriptionResponse, HttpStatus.OK);
+    }
 }
