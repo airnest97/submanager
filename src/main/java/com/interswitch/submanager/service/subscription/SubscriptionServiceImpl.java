@@ -68,7 +68,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     public ResponseEntity<?> payForDstvSubscriptionWithCard(@NotNull DstvCardPaymentRequest dstvCardPaymentRequest) throws URISyntaxException {
         Subscription foundSubscription = subscriptionRepository.findSubscriptionById(Long.parseLong(dstvCardPaymentRequest.getSubscriptionId())).
                 orElseThrow(() -> new SubmanagerException("Subscription with subscription Id " + dstvCardPaymentRequest.getSubscriptionId() + " not found", 404));
-        final String baseUrl = "http://localhost:8081/api/v1/payment/cableTransaction/dstvCard";
+        final String baseUrl = "https://submanage-pay.herokuapp.com/api/v1/payment/cableTransaction/dstvCard";
         headers.setContentType(MediaType.APPLICATION_JSON);
         uri = new URI(baseUrl);
         HttpEntity<DstvCardPaymentRequest> requestEntity = new HttpEntity<>(dstvCardPaymentRequest, headers);
@@ -89,7 +89,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         }
         foundWallet.setBalance(foundWallet.getBalance().subtract(dstvWalletPaymentRequest.getPriceOfSubscription()));
         headers.setContentType(MediaType.APPLICATION_JSON);
-        final String baseUrl = "http://localhost:8081/api/v1/payment/cableTransaction/dstvWallet";
+        final String baseUrl = "https://submanage-pay.herokuapp.com/api/v1/payment/cableTransaction/dstvWallet";
         uri = new URI(baseUrl);
         HttpEntity<DstvWalletPaymentRequest> requestEntity = new HttpEntity<>(dstvWalletPaymentRequest, headers);
         ResponseEntity<PaymentApiResponse> result = restTemplate.postForEntity(uri, requestEntity, PaymentApiResponse.class);
@@ -103,7 +103,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     public ResponseEntity<?> payForGotvSubscriptionWithCard(GotvCardPaymentRequest gotvCardPaymentRequest) throws URISyntaxException {
         Subscription foundSubscription = subscriptionRepository.findSubscriptionById(Long.parseLong(gotvCardPaymentRequest.getSubscriptionId())).
                 orElseThrow(() -> new SubmanagerException("Subscription with subscription Id " + gotvCardPaymentRequest.getSubscriptionId() + " not found", 404));
-        final String baseUrl = "http://localhost:8081/api/v1/payment/cableTransaction/gotvCard";
+        final String baseUrl = "https://submanage-pay.herokuapp.com/api/v1/payment/cableTransaction/gotvCard";
         headers.setContentType(MediaType.APPLICATION_JSON);
         uri = new URI(baseUrl);
         HttpEntity<GotvCardPaymentRequest> requestEntity = new HttpEntity<>(gotvCardPaymentRequest, headers);
@@ -124,7 +124,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         }
         foundWallet.setBalance(foundWallet.getBalance().subtract(gotvWalletPaymentRequest.getPriceOfSubscription()));
         headers.setContentType(MediaType.APPLICATION_JSON);
-        final String baseUrl = "http://localhost:8081/api/v1/payment/cableTransaction/gotvWallet";
+        final String baseUrl = "https://submanage-pay.herokuapp.com/api/v1/payment/cableTransaction/gotvWallet";
         uri = new URI(baseUrl);
         HttpEntity<GotvWalletPaymentRequest> requestEntity = new HttpEntity<>(gotvWalletPaymentRequest, headers);
         ResponseEntity<PaymentApiResponse> result = restTemplate.postForEntity(uri, requestEntity, PaymentApiResponse.class);
@@ -144,7 +144,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         }
         foundWallet.setBalance(foundWallet.getBalance().subtract(mobileDataWalletPaymentRequest.getPriceOfSubscription()));
         headers.setContentType(MediaType.APPLICATION_JSON);
-        final String baseUrl = "http://localhost:8081/api/v1/payment/dataTransaction/wallet";
+        final String baseUrl = "https://submanage-pay.herokuapp.com/api/v1/payment/dataTransaction/wallet";
         uri = new URI(baseUrl);
         HttpEntity<MobileDataWalletPaymentRequest> requestEntity = new HttpEntity<>(mobileDataWalletPaymentRequest, headers);
         ResponseEntity<PaymentApiResponse> result = restTemplate.postForEntity(uri, requestEntity, PaymentApiResponse.class);
@@ -158,7 +158,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     public ResponseEntity<?> payForMobileDataSubscriptionWithCard(MobileDataCardPaymentRequest mobileDataCardPaymentRequest) throws URISyntaxException {
         Subscription foundSubscription = subscriptionRepository.findSubscriptionById(Long.parseLong(mobileDataCardPaymentRequest.getSubscriptionId())).
                 orElseThrow(() -> new SubmanagerException("Subscription with subscription Id " + mobileDataCardPaymentRequest.getSubscriptionId() + " not found", 404));
-        final String baseUrl = "http://localhost:8081/api/v1/payment/dataTransaction/card";
+        final String baseUrl = "https://submanage-pay.herokuapp.com/api/v1/payment/dataTransaction/card";
         headers.setContentType(MediaType.APPLICATION_JSON);
         uri = new URI(baseUrl);
         HttpEntity<MobileDataCardPaymentRequest> requestEntity = new HttpEntity<>(mobileDataCardPaymentRequest, headers);
