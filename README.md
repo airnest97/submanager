@@ -1,5 +1,5 @@
 # SUBMANAGER
-A subscription management platform to help users manage multiple subscription all in one place. It was created using spring-boot using Maven as dependency tool and MySql as database.
+A subscription management platform to help users manage multiple subscription all in one place. It was created using spring-boot and using Maven as dependency tool and MySql as database.
 
 # POST-MAN DOCUMENTATION
 https://documenter.getpostman.com/view/21596187/2s8YRjoD34
