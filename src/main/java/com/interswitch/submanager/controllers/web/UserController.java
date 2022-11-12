@@ -42,7 +42,7 @@ public class UserController {
         this.subscriptionService = subscriptionService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> getUser(@PathVariable("id") @NotNull @NotBlank String userId){
         try {
             if (("null").equals(userId) || ("").equals(userId.trim())){
@@ -93,12 +93,12 @@ public class UserController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
-    @GetMapping("/subscription/{id}")
+    @GetMapping(value = "/subscription/{id}", consumes = "application/json", produces = "application/json")
     public List<SubscriptionDto> getAllSubscriptionsForUser(@PathVariable("id") @Valid @NotBlank @NotNull Long id) {
         return subscriptionService.getAllSubscriptionForUser(id);
     }
 
-    @PatchMapping("/updateUser")
+    @PatchMapping(value = "/updateUser", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> updateUserProfile(@Valid @NotBlank @NotNull @RequestParam String id,
                                                @RequestBody @NotNull UpdateRequest updateRequest ) throws SubmanagerException {
 
@@ -111,22 +111,22 @@ public class UserController {
                 .build();
         return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
     }
-    @PostMapping("/addSubscription/{userId}")
+    @PostMapping(value = "/addSubscription/{userId}", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> createSubscription(@PathVariable String userId, @RequestBody AddSubscriptionRequest addSubscriptionRequest) throws SubmanagerException {
         return new ResponseEntity<>(userService.addSubscription(userId, addSubscriptionRequest), HttpStatus.CREATED);
     }
 
-    @PatchMapping("/updateSubscription/{userId}/{subscriptionId}")
+    @PatchMapping(value = "/updateSubscription/{userId}/{subscriptionId}", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> updateSubscription(@PathVariable String userId,@PathVariable String subscriptionId,@RequestBody UpdateSubscriptionRequest updateSubscriptionRequest) throws SubmanagerException {
         return new ResponseEntity<>(userService.updateSubscription(userId, subscriptionId, updateSubscriptionRequest), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{userId}/{subscriptionId}")
+    @DeleteMapping(value = "/{userId}/{subscriptionId}", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> removeSubscription(@PathVariable String userId,@PathVariable String subscriptionId) throws SubmanagerException {
         return new ResponseEntity<>(userService.removeSubscription(userId, subscriptionId), HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/search")
+    @GetMapping(value = "/search", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?>findSubscriptionByName(@Valid @NotBlank @NotNull @RequestParam String userId, @RequestParam String subscriptionName) throws SubmanagerException {
         SubscriptionDto subscriptionResponse = userService.findSubscriptionByName(userId, subscriptionName);
         return new ResponseEntity<>(subscriptionResponse, HttpStatus.OK);

@@ -44,7 +44,7 @@ public class AuthController {
         this.tokenProvider = tokenProvider;
     }
 
-    @PostMapping("/signup")
+    @PostMapping(value = "/signup", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> createUser(HttpServletRequest request, @RequestBody @Valid @NotNull CreateAccountRequest accountCreationRequest) throws SubmanagerException {
         String host = request.getRequestURL().toString();
         int index = host.indexOf("/", host.indexOf("/", host.indexOf("/"))+2);
@@ -62,7 +62,7 @@ public class AuthController {
     }
 
 
-    @RequestMapping("/verify/{token}")
+    @RequestMapping(value = "/verify/{token}", consumes = "application/json", produces = "application/json")
     public ModelAndView verify(@PathVariable("token") String token) throws SubmanagerException {
         userService.verifyUser(token);
         ModelAndView modelAndView = new ModelAndView();
@@ -71,7 +71,7 @@ public class AuthController {
     }
 
 
-    @PostMapping("/login")
+    @PostMapping(value = "/login", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) throws SubmanagerException {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),
@@ -84,7 +84,7 @@ public class AuthController {
         return new ResponseEntity<>(new AuthToken(token, user.getId()), HttpStatus.OK);
     }
 
-    @PostMapping("/password/forgot")
+    @PostMapping(value = "/password/forgot", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> forgotPassword(HttpServletRequest request, @RequestBody @Valid @NotNull ForgotPasswordRequest forgotPasswordRequest) {
         String host = request.getRequestURL().toString();
         int index = host.indexOf("/", host.indexOf("/", host.indexOf("/"))+2);
@@ -102,7 +102,7 @@ public class AuthController {
         return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
     }
 
-    @PostMapping("/password/reset/{id}")
+    @PostMapping(value = "/password/reset/{id}", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> resetPassword(@PathVariable String id, @RequestBody NewPasswordRequest newPasswordRequest){
         ResetPasswordResponse resetPasswordResponse = userService.resetPassword(id, newPasswordRequest);
 
@@ -116,7 +116,7 @@ public class AuthController {
         return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
     }
 
-    @RequestMapping("/verifyPasswordToken/{token}")
+    @RequestMapping(value = "/verifyPasswordToken/{token}", consumes = "application/json", produces = "application/json")
     public ModelAndView verifyUserPassword(@PathVariable("token") String token) {
         userService.passwordVerification(token);
         ModelAndView modelAndView = new ModelAndView();
