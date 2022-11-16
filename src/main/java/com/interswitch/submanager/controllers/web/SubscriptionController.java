@@ -26,13 +26,13 @@ import java.util.Map;
 public class SubscriptionController {
     private final SubscriptionService subscriptionService;
 
-    @GetMapping("/id")
+    @GetMapping(value = "/id", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?>findSubscriptionById(@Valid @NotBlank @NotNull @RequestParam String id) throws SubmanagerException {
         SubscriptionDto subscriptionResponse = subscriptionService.findSubscriptionById(id);
         return new ResponseEntity<>(subscriptionResponse, HttpStatus.OK);
     }
 
-    @GetMapping("/{pageNo}/{noOfItems}")
+    @GetMapping(value = "/{pageNo}/{noOfItems}", consumes = "application/json", produces = "application/json")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public ResponseEntity<?> getAllSubscription(
             @PathVariable(value = "pageNo", required = false) @DefaultValue({"0"}) @NotNull String pageNo,
@@ -49,39 +49,39 @@ public class SubscriptionController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
-    @GetMapping("/subscriptions/export/pdf")
+    @GetMapping(value = "/subscriptions/export/pdf", consumes = "application/json", produces = "application/json")
     public void generateSubscriptionReport(
             @RequestParam String numberOfMonths,
             @RequestParam String userId, HttpServletResponse response) throws IOException, SubmanagerException {
         subscriptionService.generateSubscriptionReport(numberOfMonths, userId, response);
     }
 
-    @PostMapping("/subscriptions/payment/dstvCard")
+    @PostMapping(value = "/subscriptions/payment/dstvCard", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> payForDstvSubscriptionWithCard(@RequestBody DstvCardPaymentRequest dstvCardPaymentRequest) throws URISyntaxException {
         return subscriptionService.payForDstvSubscriptionWithCard(dstvCardPaymentRequest);
     }
 
-    @PostMapping("/subscriptions/payment/dstvWallet")
+    @PostMapping(value = "/subscriptions/payment/dstvWallet", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> payForDstvSubscriptionWithWallet(@RequestBody DstvWalletPaymentRequest dstvWalletPaymentRequest) throws URISyntaxException {
         return subscriptionService.payForDstvSubscriptionWithWallet(dstvWalletPaymentRequest);
     }
 
-    @PostMapping("/subscriptions/payment/gotvCard")
+    @PostMapping(value = "/subscriptions/payment/gotvCard", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> payForGotvSubscriptionWithCard(@RequestBody GotvCardPaymentRequest gotvCardPaymentRequest) throws URISyntaxException {
         return subscriptionService.payForGotvSubscriptionWithCard(gotvCardPaymentRequest);
     }
 
-    @PostMapping("/subscriptions/payment/gotvWallet")
+    @PostMapping(value = "/subscriptions/payment/gotvWallet", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> payForGotvSubscriptionWithWallet(@RequestBody GotvWalletPaymentRequest gotvWalletPaymentRequest) throws URISyntaxException {
         return subscriptionService.payForGotvSubscriptionWithWallet(gotvWalletPaymentRequest);
     }
 
-    @PostMapping("/subscriptions/payment/mobileDataWallet")
+    @PostMapping(value = "/subscriptions/payment/mobileDataWallet", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> payForMobileDataSubscriptionWithWallet(@RequestBody MobileDataWalletPaymentRequest mobileDataWalletPaymentRequest) throws URISyntaxException {
         return subscriptionService.payForMobileDataSubscriptionWithWallet(mobileDataWalletPaymentRequest);
     }
 
-    @PostMapping("/subscriptions/payment/mobileDataCard")
+    @PostMapping(value = "/subscriptions/payment/mobileDataCard", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> payForMobileDataSubscriptionWithCard(@RequestBody MobileDataCardPaymentRequest mobileDataCardPaymentRequest) throws URISyntaxException {
         return subscriptionService.payForMobileDataSubscriptionWithCard(mobileDataCardPaymentRequest);
     }
