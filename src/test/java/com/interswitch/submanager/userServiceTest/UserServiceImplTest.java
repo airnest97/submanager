@@ -183,7 +183,6 @@ public class UserServiceImplTest {
         when(userRepository.findById(1L)).thenReturn(Optional.of(userToReturn));
 
         UpdateRequest updateRequest = UpdateRequest.builder()
-                .email("newtest@gmail.com")
                 .firstName("ben")
                 .lastName("Kazeem")
                 .build();
@@ -191,7 +190,6 @@ public class UserServiceImplTest {
                 .id(1L)
                 .firstName(updateRequest.getFirstName())
                 .lastName(updateRequest.getLastName())
-                .email(updateRequest.getEmail())
                 .password(accountCreationRequest.getPassword())
                 .build();
 
@@ -199,7 +197,6 @@ public class UserServiceImplTest {
                 .id(1L)
                 .firstName(updateRequest.getFirstName())
                 .lastName(updateRequest.getLastName())
-                .email(updateRequest.getEmail())
                 .build();
         when(mapper.map(updateRequest, User.class)).thenReturn(userToReturn);
         when(mapper.map(userToReturn, UserDto.class)).thenReturn(userDtoToReturn);

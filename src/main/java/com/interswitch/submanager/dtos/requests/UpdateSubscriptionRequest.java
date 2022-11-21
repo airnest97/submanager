@@ -19,12 +19,13 @@ import java.time.LocalDate;
 @Builder
 public class UpdateSubscriptionRequest {
     private String nameOfSubscription;
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private BigDecimal priceOfSubscription;
     private Category category;
     private String description;
     private RecurringPayment recurringPayment;
     @JsonSerialize(using = LocalDateSerializer.class)
     @JsonDeserialize(using = LocalDateDeserializer.class)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate nextPayment;
 }

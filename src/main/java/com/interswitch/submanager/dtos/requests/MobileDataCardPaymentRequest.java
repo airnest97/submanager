@@ -18,12 +18,13 @@ import java.time.LocalDate;
 @Builder
 public class MobileDataCardPaymentRequest {
     private String subscriptionId;
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private BigDecimal priceOfSubscription;
     private String cardNumber;
     private String cVV;
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate cardExpiryDate;
     private String fullName;
     private String phoneNumber;
