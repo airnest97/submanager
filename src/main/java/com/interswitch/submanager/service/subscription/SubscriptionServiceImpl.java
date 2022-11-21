@@ -51,8 +51,8 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
     @Override
     public Subscription addSubscription(User user, AddSubscriptionRequest request) throws SubmanagerException {
-        Optional<Subscription> foundSubscription = user.getSubscriptions().stream().
-                filter(subscription -> subscription.getNameOfSubscription().equals(request.getNameOfSubscription())).findFirst();
+        Optional<Subscription> foundSubscription = Optional.ofNullable(user.getSubscriptions().stream().
+                filter(subscription -> subscription.getNameOfSubscription().equals(request.getNameOfSubscription())).findFirst().orElseThrow(() -> new SubmanagerException("No subscription found!", 404)));
         if (foundSubscription.isPresent()) {
             throw new SubmanagerException(String.format("%s already exist", request.getNameOfSubscription()), 400);
         }
@@ -191,7 +191,8 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
     @Override
     public SubscriptionDto findSubscriptionByName(User user, String name) {
-       Optional<Subscription> foundSubscription =  user.getSubscriptions().stream().filter(subscription -> subscription.getNameOfSubscription().equals(name)).findFirst();
+       Optional<Subscription> foundSubscription = Optional.ofNullable(user.getSubscriptions().stream().filter(subscription ->
+               subscription.getNameOfSubscription().equals(name)).findFirst().orElseThrow(() -> new SubmanagerException("No subscription found!", 404)));
        if(foundSubscription.isEmpty()){
            throw new SubmanagerException("Subscription with name as "+name+" not found", 404);
        }

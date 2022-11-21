@@ -22,6 +22,7 @@ public class AddSubscriptionRequest {
 
     private String nameOfSubscription;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private BigDecimal priceOfSubscription;
 
     private Category category;
@@ -32,7 +33,7 @@ public class AddSubscriptionRequest {
 
     @JsonSerialize(using = LocalDateSerializer.class)
     @JsonDeserialize(using = LocalDateDeserializer.class)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate nextPayment;
 
     private Cycle paymentCycle;
