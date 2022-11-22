@@ -115,6 +115,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         User savedUsed = modelMapper.map(updateRequest, User.class);
         savedUsed.setId(user.getId());
         savedUsed.setCreatedDate(user.getCreatedDate());
+        savedUsed.setUpdatedDate(LocalDateTime.now());
         userRepository.save(savedUsed);
         return modelMapper.map(savedUsed, UserDto.class);
     }

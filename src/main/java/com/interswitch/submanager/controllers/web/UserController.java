@@ -98,8 +98,8 @@ public class UserController {
         return subscriptionService.getAllSubscriptionForUser(id);
     }
 
-    @PatchMapping(value = "/updateUser", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<?> updateUserProfile(@Valid @NotBlank @NotNull @RequestParam String id,
+    @PatchMapping(value = "/updateUser/{id}", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<?> updateUserProfile(@Valid @NotBlank @NotNull @PathVariable String id,
                                                @RequestBody @NotNull UpdateRequest updateRequest ) throws SubmanagerException {
 
         UserDto userDto = userService.updateUserProfile(id, updateRequest);

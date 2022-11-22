@@ -206,7 +206,6 @@ public class UserServiceImplTest {
         assertThat("ben").isEqualTo(userDto.getFirstName());
         assertThat(1L).isEqualTo(userDto.getId());
         assertThat("Kazeem").isEqualTo(userDto.getLastName());
-        assertThat("newtest@gmail.com").isEqualTo(userDto.getEmail());
     }
 
     @Test

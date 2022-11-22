@@ -51,8 +51,8 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
     @Override
     public Subscription addSubscription(User user, AddSubscriptionRequest request) throws SubmanagerException {
-        Optional<Subscription> foundSubscription = Optional.ofNullable(user.getSubscriptions().stream().
-                filter(subscription -> subscription.getNameOfSubscription().equals(request.getNameOfSubscription())).findFirst().orElseThrow(() -> new SubmanagerException("No subscription found!", 404)));
+        Optional<Subscription> foundSubscription = user.getSubscriptions().stream().
+                filter(subscription -> subscription.getNameOfSubscription().equals(request.getNameOfSubscription())).findFirst();
         if (foundSubscription.isPresent()) {
             throw new SubmanagerException(String.format("%s already exist", request.getNameOfSubscription()), 400);
         }
