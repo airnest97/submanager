@@ -112,12 +112,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         User user = userRepository.findById(Long.valueOf(id)).orElseThrow(
                 () -> new SubmanagerException("User id not found", 404)
         );
-        User savedUsed = modelMapper.map(updateRequest, User.class);
-        savedUsed.setId(user.getId());
-        savedUsed.setCreatedDate(user.getCreatedDate());
-        savedUsed.setUpdatedDate(LocalDateTime.now());
-        userRepository.save(savedUsed);
-        return modelMapper.map(savedUsed, UserDto.class);
+        user.setFirstName(updateRequest.getFirstName());
+        user.setLastName(updateRequest.getLastName());
+        user.setPhoneNumber(updateRequest.getPhoneNumber());
+        user.setUpdatedDate(LocalDateTime.now());
+        userRepository.save(user);
+        return modelMapper.map(user, UserDto.class);
     }
 
     @Override
