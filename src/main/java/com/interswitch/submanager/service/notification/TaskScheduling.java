@@ -26,7 +26,7 @@ public class TaskScheduling {
     private final ApplicationEventPublisher applicationEventPublisher;
 
     @Async
-    @Scheduled(cron = "0 0 */23 * * *")
+    @Scheduled(cron = "0 0 9 * * ?")
     public void getSubToExpireInThreeDays() {
 
         List<Subscription> subscriptions = subscriptionService.findByDate(LocalDate.now());
